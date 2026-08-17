@@ -1,14 +1,15 @@
-TASKIUM 2.0.1 - PRUEBA RÁPIDA
+TASKIUM 2.1.0 - PRUEBA DE ALARMAS LOCALES
 
-1. Publica la carpeta en GitHub Pages o sírvela por HTTPS/localhost.
-2. Abre Taskium en PC o móvil e instálala si aparece el botón Instalar.
-3. Añade una tarea puntual.
-4. Añade una recurrente "Bailar salsa", cada 3 días.
-   - Al crearla debe mostrar 1 pendiente, igual que la antigua tarea diaria.
-   - Pulsa "Hecha 1": pasa a 0.
-   - El calendario queda anclado a la fecha de creación; pagar tarde no desplaza la siguiente recurrencia.
-5. Para sincronizar, inicia sesión/crea cuenta en la sección Sincronización y datos.
-6. Activa notificaciones, concede permiso y configura una alarma próxima.
-7. Para importar el estado del Taskium recibido en el ZIP, usa "Importar estado incluido".
+WINDOWS
+1. Publica Taskium 2.1.0 en GitHub Pages.
+2. Ejecuta TaskiumAlarmBridge.exe una sola vez.
+3. Abre Taskium. En Alarmas debe indicar: Windows · alarma local.
+4. Pon una hora 2-3 minutos por delante. Al cambiar la hora, la casilla se activa automáticamente.
+5. Cierra Taskium. A la hora prevista debe abrirse una ventana de Taskium aunque No molestar esté activo.
 
-NOTA: abrir index.html directamente con file:// no sirve para PWA, IndexedDB/Service Worker/Push de forma fiable. Usa GitHub Pages, HTTPS o localhost.
+ANDROID
+1. Instala el APK nativo de Taskium.
+2. Inicia sesión y sincroniza.
+3. Pulsa Activar alarmas locales y concede notificaciones + alarmas exactas si Android lo solicita.
+4. Programa una hora 2-3 minutos por delante.
+5. Cierra la app. Android debe mostrar la notificación local a la hora programada.

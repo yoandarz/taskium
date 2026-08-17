@@ -1,42 +1,31 @@
-# Taskium 2.0.2
+# Taskium 2.1.0
 
-PWA instalable para Windows y móvil, construida a partir de Taskium de escritorio y del patrón técnico probado en GymLedger 2.0.8.
+PWA offline-first con Supabase para sincronización de datos y **alarmas locales nativas** en los dispositivos instalados.
 
-## Funciones
-- Tareas puntuales: permanecen hasta marcarlas como hechas.
-- Tareas recurrentes acumulables: cada N días nace una unidad de deuda desde una fecha de origen fija.
-- Pagar deuda no mueve el calendario de recurrencia.
-- Prioridad manual mediante subir/bajar.
-- Hasta tres alarmas por día de la semana y posposición de 1 a 60 minutos.
-- IndexedDB local y funcionamiento offline.
-- Sincronización opcional con Supabase mediante cuenta de usuario.
-- Web Push para alertas aunque la PWA esté cerrada, una vez concedido permiso y sincronizados los ajustes.
-- Tema claro/oscuro.
-- Importación de JSON del Taskium de escritorio.
+## Arquitectura
 
-## Prueba local
-Debe servirse por HTTP/HTTPS (no abrir index.html con file://). Por ejemplo:
+- IndexedDB mantiene la copia local y permite trabajar sin conexión.
+- Supabase sincroniza tareas, ajustes y horarios entre dispositivos.
+- Windows usa `TaskiumAlarmBridge.exe` + Programador de tareas de Windows.
+- Android usa la app nativa de Taskium + `AlarmManager`.
+- La hora de una alarma ya no depende de que un cron de Supabase coincida exactamente con ese minuto.
 
-    python -m http.server 8000
+## Publicación web
 
-Luego abrir http://localhost:8000/taskium2/ si la carpeta está bajo el directorio servido, o servir directamente esta carpeta.
+Sube el contenido de la carpeta `taskium2` a GitHub Pages como en las versiones anteriores.
 
-## Publicación
-El contenido de esta carpeta puede publicarse directamente en GitHub Pages. Incluye `.nojekyll`, `manifest.webmanifest` y `service-worker.js`.
+La página web pura sigue sirviendo para tareas y sincronización, pero para alarmas locales fiables con la aplicación cerrada instala la pieza nativa correspondiente al dispositivo.
 
-## Supabase
-Esta compilación apunta al proyecto ya configurado `GigPlan` y usa exclusivamente recursos `taskium_*`. La clave incluida es publicable, apta para cliente web; no contiene `service_role`.
+## Windows
 
-## Alertas
-Para recibir alertas con la app cerrada:
-1. Iniciar sesión en Taskium.
-2. Pulsar `Activar notificaciones` y conceder permiso.
-3. Configurar al menos una alarma y sincronizar.
-4. Debe existir al menos una tarea puntual o deuda recurrente pendiente cuando llegue la hora.
+Ejecuta una vez `TaskiumAlarmBridge.exe`. Se copia a `%LOCALAPPDATA%\Taskium`, se inicia automáticamente al entrar en Windows y escucha solo en `127.0.0.1:51337`.
 
-En iPhone/iPad, las notificaciones web requieren instalar la PWA en la pantalla de inicio y una versión compatible de iOS/iPadOS.
+Taskium le envía una copia de las tareas y horarios cuando cambian o se sincronizan. El Bridge registra los horarios en el Programador de tareas de Windows y, cuando toca, calcula la deuda localmente y abre una ventana de Taskium.
 
+## Android
 
-## 2.0.2
-- Las notificaciones push solicitan permanecer visibles (`requireInteraction`) hasta que el usuario las atienda.
-- Se fuerza aviso audible (`silent: false`) y reaviso cuando corresponda (`renotify: true`).
+La app Android carga la web publicada de Taskium y expone un puente nativo. Al cambiar o sincronizar horarios, Android registra las alarmas en `AlarmManager`. El receptor calcula la deuda localmente cuando dispara la alarma.
+
+## Nota
+
+Cada dispositivo usa la última copia que haya sincronizado. Supabase sigue siendo la fuente común de datos, pero **no participa en el disparo de una alarma ya registrada localmente**.
