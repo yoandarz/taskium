@@ -1,10 +1,10 @@
-# Taskium Android 2.1.2
+# Taskium Android 2.1.3
 
-Versión de diagnóstico del motor de alarmas locales.
+Versión nativa final del motor local de alarmas de Taskium.
 
-Al pulsar **Activar alarmas locales**:
-- solicita notificaciones y Alarmas y recordatorios si faltan;
-- programa una prueba nativa independiente a 60 segundos;
-- conserva diagnóstico de estado recibido, alarmas activas, próxima alarma y errores de programación.
-
-La prueba nativa no depende de que existan tareas pendientes.
+Cambios principales:
+- conserva AlarmManager y las alarmas locales ya validadas en Android;
+- usa el icono real de Taskium, tomado de los recursos de la PWA;
+- respeta la barra de estado y el recorte de pantalla en Android 15 / SDK 35;
+- mantiene la vista directa de tareas pendientes al tocar una alarma;
+- elimina la prueba automática de diagnóstico de 60 segundos al activar alarmas.

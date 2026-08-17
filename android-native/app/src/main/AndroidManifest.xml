@@ -8,6 +8,8 @@
 
     <application
         android:allowBackup="true"
+        android:icon="@drawable/taskium_icon"
+        android:roundIcon="@drawable/taskium_icon"
         android:label="Taskium"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="false">
