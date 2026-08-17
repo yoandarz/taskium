@@ -1,7 +1,10 @@
-# Taskium Android 2.1.1
+# Taskium Android 2.1.2
 
-Aplicación Android nativa ligera de Taskium. La interfaz se carga exclusivamente desde https://yoandarz.github.io/taskium/ y el puente nativo solo queda disponible en esa WebView.
+Versión de diagnóstico del motor de alarmas locales.
 
-Las alarmas se guardan localmente con AlarmManager. En Android 12+ se solicita acceso especial a Alarmas y recordatorios; en Android 13+ también se solicita permiso de notificaciones. Al conceder el acceso exacto, las alarmas se reprograman automáticamente.
+Al pulsar **Activar alarmas locales**:
+- solicita notificaciones y Alarmas y recordatorios si faltan;
+- programa una prueba nativa independiente a 60 segundos;
+- conserva diagnóstico de estado recibido, alarmas activas, próxima alarma y errores de programación.
 
-Si no hay tareas pendientes en el momento de la alarma, Taskium no muestra aviso.
+La prueba nativa no depende de que existan tareas pendientes.
