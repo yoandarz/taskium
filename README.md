@@ -1,4 +1,4 @@
-# Taskium 2.0.0
+# Taskium 2.0.1
 
 PWA instalable para Windows y móvil, construida a partir de Taskium de escritorio y del patrón técnico probado en GymLedger 2.0.8.
 

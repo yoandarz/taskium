@@ -1,4 +1,4 @@
-TASKIUM 2.0.0 - PRUEBA RÁPIDA
+TASKIUM 2.0.1 - PRUEBA RÁPIDA
 
 1. Publica la carpeta en GitHub Pages o sírvela por HTTPS/localhost.
 2. Abre Taskium en PC o móvil e instálala si aparece el botón Instalar.
