@@ -1,0 +1,17 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'com.taskium.app'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'com.taskium.app'
+        minSdk 26
+        targetSdk 35
+        versionCode 211
+        versionName '2.1.1'
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core:1.15.0'
+}
