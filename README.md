@@ -1,4 +1,4 @@
-# Taskium 2.0.1
+# Taskium 2.0.2
 
 PWA instalable para Windows y móvil, construida a partir de Taskium de escritorio y del patrón técnico probado en GymLedger 2.0.8.
 
@@ -35,3 +35,8 @@ Para recibir alertas con la app cerrada:
 4. Debe existir al menos una tarea puntual o deuda recurrente pendiente cuando llegue la hora.
 
 En iPhone/iPad, las notificaciones web requieren instalar la PWA en la pantalla de inicio y una versión compatible de iOS/iPadOS.
+
+
+## 2.0.2
+- Las notificaciones push solicitan permanecer visibles (`requireInteraction`) hasta que el usuario las atienda.
+- Se fuerza aviso audible (`silent: false`) y reaviso cuando corresponda (`renotify: true`).
