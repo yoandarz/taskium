@@ -7,6 +7,28 @@ function cleanRecord(record) {
   return out;
 }
 
+function shiftIsoDate(iso, days) {
+  const d = new Date(`${iso}T00:00:00Z`);
+  if (Number.isNaN(d.getTime())) return iso;
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
+// Compatibility adapter for the already-installed native engines.
+// Web semantics: anchorDate is the FIRST due date.
+// Older native engines count one unit immediately from their anchor,
+// so we shift the bridge-only anchor back one interval and add one
+// completed unit. Stored/cloud task data is not modified.
+function taskForNativeBridge(record) {
+  const out = cleanRecord(record);
+  if (out?.taskKind === 'recurring' && out.anchorDate) {
+    const interval = Math.max(1, Number(out.intervalDays) || 1);
+    out.anchorDate = shiftIsoDate(out.anchorDate, -interval);
+    out.completedCount = Math.max(0, Number(out.completedCount) || 0) + 1;
+  }
+  return out;
+}
+
 function androidBridge() {
   return window.TaskiumNativeAndroid && typeof window.TaskiumNativeAndroid.syncState === 'function'
     ? window.TaskiumNativeAndroid
@@ -47,10 +69,10 @@ export async function activateLocalAlarms() {
 
 export async function reconcileLocalAlarms(settings, tasks) {
   const payload = JSON.stringify({
-    version: 1,
+    version: 2,
     updatedAt: new Date().toISOString(),
     settings: cleanRecord(settings),
-    tasks: (tasks || []).map(cleanRecord),
+    tasks: (tasks || []).map(taskForNativeBridge),
   });
 
   const android = androidBridge();
